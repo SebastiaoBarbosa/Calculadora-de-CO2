@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notas e Exemplos</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      h1 {
+        color: #333;
+      }
+      p {
+        color: #666;
+        line-height: 1.6;
+      }
+      
+        .table-container {
+            display: inline-block;
+            margin-right: 20px; /* Add spacing between tables if needed */
+            vertical-align: top;        }
+    
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Notas e orientações (Notes and help)</h1>
+    </header>
+    <main>
+      <nav>
+        <h2>Conteúdo</h2>
+        <ul>
+          <li><a href="#section1">Introdução</a></li>
+          <li><a href="#section2">Notas</a></li>
+          <li><a href="#section3">Instruções</a></li>
+          <p>English section</p>
+          <li><a href="#section1EN">Introduction</a></li>
+          <li><a href="#section2EN">Notes</a></li>
+          <li><a href="#section3EN">Intructions</a></li>
+          <!-- Add more entries as needed -->
+        </ul>
+      </nav>
+      <section id="section1">
+        <p>
+          Esta página contém informações importantes relacionadas ao uso do
+          Calculadora de CO<sub>2</sub>, nomeadamente valores típicos de dados
+          de entrada.
+        </p>
+      </section>
+      <section id="section2">
+        <h2>Notas</h2>
+        <ul>
+          <li>
+            Todas as emissões de CO<sub>2</sub> calculadas nesta ferramenta são
+            referentes às emissões diretas dos modos de transporte integrados
+            nas cadeias logísticas dos Portos marítimos. Estas foram calculadas
+            com recurso à metodologia
+            <a
+              href="https://www.eea.europa.eu/publications/emep-eea-guidebook-2019"
+              >EMEP/EEA</a
+            >
+            .
+          </li>
+
+          <li>
+            Esta ferramenta está dividida em 3 níveis. Estes níveis são
+            vocacionados para vários tipos utilizadores, requerendo e fornecendo
+            informação diferente:
+            <ul>
+              <li>
+                O primeiro nível tem como objetivo calcular as emissões de um
+                veículo, equipamento ou navio individualmente. Ou seja, fornece
+                resultados apenas para um meio de transporte. Esta parte é
+                direcionada ao uso do cidadão e do trabalhador, portanto requere
+                o mínimo de dados possível.
+              </li>
+              <li>
+                O segundo nível pretende calcular as emissões de uma frota de um
+                modo de transporte. Ou seja, é possível criar uma frota do modo
+                de transporte que pretender e irá obter resultados para a frota
+                criada. É ainda possível comparar frotas diferentes entre si.
+                Esta parte é direcionada às empresas de transporte e empresas
+                com presença física nos portos.
+              </li>
+              <li>
+                O terceiro nível é o mais completo de todos, visa simular uma
+                cadeia logística completa. Ou seja, é possível adicionar todos
+                os tipos de veículos, equipamentos, comboios e navios, para quantificar as
+                emissões de CO<sub>2</sub> emitidas durante o transporte de uma
+                mercadoria. É ainda possível guardar, comparar e exportar para
+                Excel os resultados obtidos. Este nível é direcionado às
+                empresas logísticas e às autoridades portuárias.
+              </li>
+            </ul>
+          </li>
+          <li>
+            As emissões de CO<sub>2</sub> das misturas de biocombustíveis são
+            calculadas com recurso aos valores de redução de emissões fósseis
+            fornecidos pelo
+            <a
+              href="https://www.europarl.europa.eu/committees/pt/renewable-energy-directive-red-ii-/product-details/20220214CDT09123"
+              >RED II</a
+            >
+            e considerando que o Biodiesel é produzido recurendo a óleos
+            alimentares usados e que o Etanol é produzido a partir de palha de
+            milho.
+          </li>
+          <li>
+            Para a quantificação das emissões de CO<sub>2</sub> com origem em
+            veículos elétricos ou híbridos plug-in considerou-se o mix
+            energético português de 2021.
+          </li>
+        </ul>
+      </section>
+
+      <section id="section3">
+        <h2>Instruções de preenchimento</h2>
+
+        <p class="text">
+          Dados dependentes do tipos de combustíveis considerados
+        </p>
+        <table id="tabelaInfoModoMaritimo-tipodeCombutivel" >
+          <thead>
+            <tr>
+              <th>Tipo de combutível</th>
+              <th>Poder calorífico inferior [MJ/kg]</th>
+              <th>
+                Coeficiente de Emissão direta  [kg CO<sub>2</sub>/kg combustível]
+               </th>
+<th>Coeficente de Emissão indireta considerado *</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Diesel marítimo</td>
+              <td>43.4</td>
+              <td>3.206</td>
+            </tr>
+            <tr>
+              <td>Diesel rodoviário (B7)</td>
+              <td>42.58</td>
+              <td>2.94</td>
+            </tr>
+            <tr>
+              <td>Diesel (B15)</td>
+              <td>42.95</td>
+              <td>2.724</td>
+            </tr>
+            <tr>
+              <td>Biodiesel (B100)</td>
+              <td>37</td>
+              <td>0.327</td>
+            </tr>
+            <tr>
+              <td>Gasolina 95(E5)</td>
+              <td>42.2</td>
+              <td>3.03</td>
+            </tr>
+            <tr>
+              <td>Gasolina 98 (E10)</td>
+              <td>41.4</td>
+              <td>2.9</td>
+            </tr>
+            <tr>
+              <td>Etanol (E85)</td>
+              <td>27</td>
+              <td>0.88</td>
+            </tr>
+            <tr>
+              <td>Gás liquefeito de petróleo</td>
+              <td>49.8</td>
+              <td>2.75</td>
+            </tr>
+            <tr>
+              <td>Fuelóleo pesado</td>
+              <td>41.5</td>
+              <td>3.114</td>
+            </tr>
+            <tr>
+              <td>Hidrogénio Verde</td>
+              <td>120</td>
+              <td>0</td>
+              <td>2.04 [kg CO<sub
+              >2</sub>/kg combustível]</td>
+            </tr>
+            <tr>
+              <td>Metanol</td>
+              <td>19.8</td>
+              <td>1.375</td>
+            </tr>
+            <tr>
+              <td>Amoníaco</td>
+              <td>18.6</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>Eletricidade</td>
+              <td>-</td>
+              <td>-</td>
+              <td>41.3 [ton CO<sub>2</sub>/TJ]</td>
+            </tr>
+          </tbody>
+        </table>
+        <br/>
+        * Este coeficente foi apenas considerado para as fontes de energia em que não existem emissões diretas, ou seja, não emitem gases com efeito de estufa equanto estão a ser usados. Este é o caso do hidrogénio e da eletricidade.
+              <br />
+        <h3>Navios</h3>
+        Os navios movidos a metanol, usam na verdade uma mistura de
+        metanol e diesel marítimo. Isto é também verdade para os navios
+        movidos a amoníaco. É ainda importante referir que nos sistemas de
+        propulsão a amoníaco, a fonte de CO<sub>2</sub> é a parcela de diesel
+        marítimo.<br />
+        Para os sistemas onde a fonte energética é o hidrogénio verde
+        considerou-se que as celulas de combustível têm uma eficiência de 53.8%
+        <p class="text">Dados dependentes do tipo de navio</p>
+        <table id="tabelaInfoModoMaritimo-tipodeNavio">
+          <thead>
+            <tr>
+              <th>Tipo de Navio</th>
+              <th>Potência típica [kW]</th>
+              <th>Arqueação bruta típica [GT]</th>
+              <th>Tempo médio de Manobras [horas]</th>
+              <th>Tempo médio de Atracação [horas]</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Navio de carga liquida</td>
+              <td>6543</td>
+              <td>22486</td>
+              <td>0.9</td>
+              <td>30</td>
+            </tr>
+            <tr>
+              <td>Navio de carga a granel</td>
+              <td>4397</td>
+              <td>9065</td>
+              <td>1</td>
+              <td>120</td>
+            </tr>
+            <tr>
+              <td>Navio de contentores</td>
+              <td>14871</td>
+              <td>17872</td>
+              <td>0.8</td>
+              <td>62</td>
+            </tr>
+            <tr>
+              <td>Navio de carga geral</td>
+              <td>2555</td>
+              <td>3846</td>
+              <td>0.8</td>
+              <td>60</td>
+            </tr>
+            <tr>
+              <td>Cargueiro Ro-Ro</td>
+              <td>4194</td>
+              <td>1709</td>
+              <td>0.9</td>
+              <td>110</td>
+            </tr>
+            <tr>
+              <td>Embarcação de pesca</td>
+              <td>734</td>
+              <td>310</td>
+              <td>0.5</td>
+              <td>60</td>
+            </tr>
+            <tr>
+              <td>Embarcação portuária</td>
+              <td>2033</td>
+              <td>282</td>
+              <td>0.5</td>
+              <td>0</td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+
+        <br />
+        <h3>Equipamentos Portuários</h3>
+        <p class="text">
+          Dados referentes aos tipos de equipamentos mais utilizados
+        </p>
+        <table id="tabelaInfoeEquipamentos-tipodeequipamento">
+          <thead>
+            <tr>
+              <th>Tipo de equipamento</th>
+              <th>Intervalos médios de potência[kW]</th>
+              <th>Capacidade máxima típica [ton]</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="2">Grua</td>
+              <td>150-250</td>
+              <td>9.5-35</td>
+            </tr>
+            <tr>
+              <td>350-750</td>
+              <td>104-135</td>
+            </tr>
+            <tr>
+              <td>Reachstaker</td>
+              <td>200-s250</td>
+              <td>40-45</td>
+            </tr>
+            <tr>
+              <td rowspan="2">Empilhador</td>
+              <td>40-100</td>
+              <td>4.5-10</td>
+            </tr>
+            <tr>
+              <td>150-250</td>
+              <td>30-45</td>
+            </tr>
+            <tr>
+              <td>Pá carregadora</td>
+              <td>120-250</td>
+              <td>12-30</td>
+            </tr>
+            <tr>
+              <td>Locotrator</td>
+              <td>150-300</td>
+              <td>40</td>
+            </tr>
+            <tr>
+              <td>Varredora industrial</td>
+              <td>10-50</td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+
+        <h3>Comboios</h3>
+        O intervalo médio da potência das locomotivas é 1000-3000 [kW]
+     <h3>Veículos rodoviários</h3>
+Estes são os tipos de veículos considerados no nível 2 e 3.
+<br>
+<div class="table-container">
+<h4>Veículos de passageiros</h4>
+<table border = "1">
+  <tr>
+    <th>Tipo de veículo</th>
+    <th>Standard Europeu</th>
+</tr>
+<tr>
+  <td rowspan="5">Gasolina mini</td>
+  <td>Euro 4</td>
+</tr>
+<tr><td>Euro 5</td></tr>
+<tr><td>Euro 6 a/b/c</td></tr>
+<tr><td>Euro 6 d-temp</td></tr>
+<tr><td>Euro 6 d</td></tr>
+<tr><td rowspan="15">Gasolina pequeno<br> Gasolina médio <br> Gasolina grande</td>
+<td>PRE ECE</td></tr>
+<tr><td>ECE 15/00-01</td></tr>
+<tr><td>ECE 15/02</td></tr>
+<tr><td>ECE 15/03</td></tr>
+<tr><td>ECE 15/04</td></tr>
+<tr><td>Improved Conventional</td></tr>
+<tr><td>Open Loop</td></tr>
+<tr><td>Euro 1</td></tr>
+<tr><td>Euro 2</td></tr>
+<tr><td>Euro 3</td></tr>
+<tr><td>Euro 4</td></tr>
+<tr><td>Euro 5</td></tr>
+<tr><td>Euro 6 a/b/c</td></tr>
+<tr><td>Euro 6 d-temp</td></tr>
+<tr><td>Euro 6d</td></tr>
+<tr><td rowspan="5">Diesel mini</td>
+  <td>Euro 4</td></tr>
+  <tr><td>Euro 5</td></tr>
+<tr><td>Euro 6 a/b/c</td></tr>
+<tr><td>Euro 6 d-temp</td></tr>
+<tr><td>Euro 6d</td></tr>
+<tr><td rowspan="9">Diesel pequeno <br>Diesel médio <br>Diesel grande</td>
+  <td>Conventional</td></tr>
+  <tr><td>Euro 1</td></tr>
+  <tr><td>Euro 2</td></tr>
+  <tr><td>Euro 3</td></tr>
+  <tr><td>Euro 4</td></tr>
+  <tr><td>Euro 5</td></tr>
+  <tr><td>Euro 6 a/b/c</td></tr>
+  <tr><td>Euro 6 d-temp</td></tr>
+  <tr><td>Euro 6d</td></tr>
+  <tr><td rowspan="5">Híbrido a gasolina mini<br>Híbrido a gasolina pequeno <br>Híbrido a gasolina médio<br>Híbrido a gasolina grande  </td>
+  <td>Euro 4</td></tr>
+  <tr><td>Euro 5</td></tr>
+  <tr><td>Euro 6 a/b/c</td></tr>
+  <tr><td>Euro 6 d-temp</td></tr>
+  <tr><td>Euro 6d</td></tr>
+  <tr><td rowspan="3">Gasolina Plug-in pequeno<br>Gasolina Plug-in médio<br>Gasolina Plug-in grande</td>
+  <td>Euro 6 a/b/c</td></tr>
+  <tr><td>Euro 6 d-temp</td></tr>
+  <tr><td>Euro 6d</td></tr>
+  <tr><td rowspan="3">Diesel Plug-in grande</td>
+    <td>Euro 6 a/b/c</td></tr>
+    <tr><td>Euro 6 d-temp</td></tr>
+    <tr><td>Euro 6d</td></tr>
+    <tr><td rowspan="5">LPG mini</td>
+    <td>Euro 4</td></tr>
+    <tr><td>Euro 5</td></tr>
+    <tr><td>Euro 6 a/b/c</td></tr>
+    <tr><td>Euro 6 d-temp</td></tr>
+    <tr><td>Euro 6d</td></tr>
+    <tr><td rowspan="9">LPG pequeno <br>LPG médio <br>LPG grande</td>
+    <td>Conventional</td></tr>
+    <tr><td>Euro 1</td></tr>
+    <tr><td>Euro 2</td></tr>
+    <tr><td>Euro 3</td></tr>
+    <tr><td>Euro 4</td></tr>
+    <tr><td>Euro 5</td></tr>
+    <tr><td>Euro 6 a/b/c</td></tr>
+    <tr><td>Euro 6 d-temp</td></tr>
+    <tr><td>Euro 6d</td></tr>
+    <tr><td rowspan="5">CNG mini <br>CNG peqeuno<br>CNg médio<br>CNG grande</td><td>Euro 4</td></tr>
+    <tr><td>Euro 5</td></tr>
+    <tr><td>Euro 6 a/b/c</td></tr>
+    <tr><td>Euro 6 d-temp</td></tr>
+    <tr><td>Euro 6d</td></tr>
+</table>
+<br>
+</div>
+<div class="table-container">
+<h4>Veículo ligeiro de mercadorias</h4>
+<table border = "1">
+  <tr>
+    <th>Tipo de veículo</th>
+    <th>Standard Europeu</th>
+</tr>
+<tr><td rowspan="9">Petrol N1-I <br>Petrol N1-II <br>Petrol N1-III</td><td>Conventional</td></tr>
+<tr><td>Euro 1</td></tr>
+<tr><td>Euro 2</td></tr>
+<tr><td>Euro 3</td></tr>
+<tr><td>Euro 4</td></tr>
+<tr><td>Euro 5</td></tr>
+<tr><td>Euro 6 a/b/c</td></tr>
+<tr><td>Euro 6 d-temp</td></tr>
+<tr><td>Euro 6d</td></tr>
+<tr><td rowspan="9">Diesel N1-I <br>Diesel N1-II <br>Diesel N1-III</td><td>Conventional</td></tr>
+<tr><td>Euro 1</td></tr>
+<tr><td>Euro 2</td></tr>
+<tr><td>Euro 3</td></tr>
+<tr><td>Euro 4</td></tr>
+<tr><td>Euro 5</td></tr>
+<tr><td>Euro 6 a/b/c</td></tr>
+<tr><td>Euro 6 d-temp</td></tr>
+<tr><td>Euro 6d</td></tr>
+</table>
+<br>
+</div>
+<div class="table-container">
+<h4>Veículo pesado de mercadorias</h4>
+<table border = "1">
+  <tr>
+    <th>Tipo de veículo</th>
+    <th>Standard Europeu</th>
+</tr>
+<tr><td>Gasolina >3.5ton </td><td>Conventional</td></tr>
+<tr><td rowspan="8">Diesel</td><td>Conventional</td></tr>
+<tr><td>Euro I</td></tr>
+<tr><td>Euro II</td></tr>
+<tr><td>Euro III</td></tr>
+<tr><td>Euro VI</td></tr>
+<tr><td>Euro V</td></tr>
+<tr><td>Euro VI A/B/C</td></tr>
+<tr><td>Euro VI D/E</td></tr>
+</table>
+<br>
+</div>
+</section>
+      <br />
+
+      <section id="section1EN">
+        
+
+        <p>
+          This page contains important information related to the usage of the CO<sub>2</sub> Calculator, including typical values to consider.
+        </p>
+      </section>
+      <section id="section2EN">
+        <h2>Notes</h2>
+        <ul>
+          <li>
+            All CO<sub>2</sub> emissions calculated in this tool refer to the direct emissions of the transportation modes integrated into the Port's logistic chain. The calculations were done using the <a href="https://www.eea.europa.eu/publications/emep-eea-guidebook-2019">EMEP/EEA</a> methodology.
+          </li>
+          <li>
+            This tool is divided into three levels. Each part is directed at different entities, providing and requiring different information:
+            <ul>
+              <li>
+                The first level aims to provide the emissions of a vehicle, equipment, or ship individually. In other words, it provides results for only one mode of transport. At this level, the inputs are the simplest. This part is directed at citizens and workers' use.
+              </li>
+              <li>
+                The second level aims to calculate the emissions of a fleet of a transportation mode. In other words, it is possible to create a fleet of the mode you want, and it will provide results for the created fleet. It is also possible to compare different fleets. This part is aimed at transport companies and companies with a physical presence in ports.
+              </li>
+              <li>
+                The third level is the most ambitious of all; its objective is to simulate a full logistic chain. In other words, it is possible to add all types of vehicles, equipment, trains and ships to quantify the CO<sub>2</sub> emissions during the transportation of goods. It is also possible to save, compare, and export the results obtained to Excel. This level is aimed at logistics companies and Port's authorities.
+              </li>
+            </ul>
+          </li>
+          <li>
+            CO<sub>2</sub> emissions from biofuel blends are calculated using fossil emission reduction values provided by <a href="https://www.europarl.europa.eu/committees/pt/renewable-energy-directive-red-ii-/product-details/20220214CDT09123">RED II</a> and considering that Biodiesel is produced using used cooking oils and that Ethanol is produced from corn husks.
+          </li>
+          <li>
+            To quantify CO<sub>2</sub> emissions originating from electric or plug-in hybrid vehicles, the Portuguese energy mix source of 2021 was taken into account.
+          </li>
+        </ul>
+          </li>
+        </ul>
+      </section>
+      <br />
+      <section id="section3EN">
+        <h2>Instructions</h2>
+      
+        <p class="text">
+          Data dependent on the types of considered fuels.
+        </p>
+        <table id="tabelaInfoModoMaritimo-tipodeCombutivel">
+          <thead>
+            <tr>
+              <th>Fuel Type</th>
+              <th>Lower Heating Value [MJ/kg]</th>
+              <th>Direct CO<sub>2</sub> emission coefficient [kg/kg fuel]</th>
+              <th>Indirect CO<sub>2</sub> emission eoefficient *</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Marine Diesel</td>
+              <td>43.4</td>
+              <td>3.206</td>
+            </tr>
+            <tr>
+              <td>Road Diesel (B7)</td>
+              <td>42.58</td>
+              <td>2.94</td>
+            </tr>
+            <tr>
+              <td>Diesel (B15)</td>
+              <td>42.95</td>
+              <td>2.724</td>
+            </tr>
+            <tr>
+              <td>Biodiesel (B100)</td>
+              <td>37</td>
+              <td>0.327</td>
+            </tr>
+            <tr>
+              <td>Gasoline 95(E5)</td>
+              <td>42.2</td>
+              <td>3.03</td>
+            </tr>
+            <tr>
+              <td>Gasoline 98 (E10)</td>
+              <td>41.4</td>
+              <td>2.9</td>
+            </tr>
+            <tr>
+              <td>Ethanol (E85)</td>
+              <td>27</td>
+              <td>0.88</td>
+            </tr>
+            <tr>
+              <td>Liquefied Petroleum Gas</td>
+              <td>49.8</td>
+              <td>2.75</td>
+            </tr>
+            <tr>
+              <td>Heavy Fuel Oil</td>
+              <td>41.5</td>
+              <td>3.114</td>
+            </tr>
+            <tr>
+              <td>Green Hydrogen</td>
+              <td>120</td>
+              <td>0</td>
+              <td>2.04 [kg CO<sub>2</sub>/kg fuel]</td>
+            </tr>
+            <tr>
+              <td>Methanol</td>
+              <td>19.8</td>
+              <td>1.375</td>
+            </tr>
+            <tr>
+              <td>Ammonia</td>
+              <td>18.6</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>Eletricidade</td>
+              <td>-</td>
+              <td>-</td>
+              <td>41.3 [ton CO<sub>2</sub>/TJ]</td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+        * This coefficient was only considered for the energy sources in which there are no direct emissions, that is, they do not emit greenhouse gases when they are being used. This is the case with hydrogen and electricity.
+                <br/>
+        <h3>Ships</h3>
+        The ships powered by methanol actually use a mixture of methanol and marine diesel. This is also true for ships powered by ammonia. It's important to note that in ammonia propulsion systems, the source of CO<sub>2</sub> is the portion of marine diesel.<br />
+        For systems where the energy source is green hydrogen, it is considered that the fuel cells have an efficiency of 53.8%.
+        <p class="text">Data depends on the type of ship</p>
+        <table id="tabelaInfoModoMaritimo-tipodeNavio">
+          <thead>
+            <tr>
+              <th>Ship Type</th>
+              <th>Typical Power [kW]</th>
+              <th>Typical Gross Tonnage [GT]</th>
+              <th>Average Maneuvering Time [hours]</th>
+              <th>Average Berthing Time [hours]</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tanker Ship</td>
+              <td>6543</td>
+              <td>22486</td>
+              <td>0.9</td>
+              <td>30</td>
+            </tr>
+            <tr>
+              <td>Bulk Carrier</td>
+              <td>4397</td>
+              <td>9065</td>
+              <td>1</td>
+              <td>120</td>
+            </tr>
+            <tr>
+              <td>Container Ship</td>
+              <td>14871</td>
+              <td>17872</td>
+              <td>0.8</td>
+              <td>62</td>
+            </tr>
+            <tr>
+              <td>General Cargo Ship</td>
+              <td>2555</td>
+              <td>3846</td>
+              <td>0.8</td>
+              <td>60</td>
+            </tr>
+            <tr>
+              <td>Ro-Ro Cargo Ship</td>
+              <td>4194</td>
+              <td>1709</td>
+              <td>0.9</td>
+              <td>110</td>
+            </tr>
+            <tr>
+              <td>Fishing Vessel</td>
+              <td>734</td>
+              <td>310</td>
+              <td>0.5</td>
+              <td>60</td>
+            </tr>
+            <tr>
+              <td>Port Vessel</td>
+              <td>2033</td>
+              <td>282</td>
+              <td>0.5</td>
+              <td>0</td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+      
+        <h3>Port Equipment</h3>
+        <p class="text">Data regarding the most commonly used types of equipment.</p>
+        <table id="tabelaInfoeEquipamentos-tipodeequipamento">
+          <thead>
+            <tr>
+              <th>Equipment Type</th>
+              <th>Average Power Ranges [kW]</th>
+              <th>Typical Maximum Capacity [ton]</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="2">Crane</td>
+              <td>150-250</td>
+              <td>9.5-35</td>
+            </tr>
+            <tr>
+              <td>350-750</td>
+              <td>104-135</td>
+            </tr>
+            <tr>
+              <td>Reach Stacker</td>
+              <td>200-250</td>
+              <td>40-45</td>
+            </tr>
+            <tr>
+              <td rowspan="2">Forklift</td>
+              <td>40-100</td>
+              <td>4.5-10</td>
+            </tr>
+            <tr>
+              <td>150-250</td>
+              <td>30-45</td>
+            </tr>
+            <tr>
+              <td>Wheel Loader</td>
+              <td>120-250</td>
+              <td>12-30</td>
+            </tr>
+            <tr>
+              <td>Shunting locomotive</td>
+              <td>150-300</td>
+              <td>40</td>
+            </tr>
+            <tr>
+              <td>Industrial Sweeper</td>
+              <td>10-50</td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+      
+        <h3>Trains</h3>
+        The average power range of locomotives is 1000-3000 [kW].
+        <br>
+        <h3>Road Vehicles</h3>
+These are the types of vehicles considered at levels 2 and 3.
+<br>
+<div class="table-container">
+<h4>Passenger Vehicles</h4>
+<table border = "1">
+  <tr>
+    <th>Vehicle Type</th>
+    <th>European Standard</th>
+</tr>
+<tr>
+  <td rowspan="5">Petrol Mini</td>
+  <td>Euro 4</td>
+</tr>
+<tr><td>Euro 5</td></tr>
+<tr><td>Euro 6 a/b/c</td></tr>
+<tr><td>Euro 6 d-temp</td></tr>
+<tr><td>Euro 6 d</td></tr>
+<tr><td rowspan="15">Petrol Small<br> Petrol Medium <br> Petrol Large</td>
+<td>PRE ECE</td></tr>
+<tr><td>ECE 15/00-01</td></tr>
+<tr><td>ECE 15/02</td></tr>
+<tr><td>ECE 15/03</td></tr>
+<tr><td>ECE 15/04</td></tr>
+<tr><td>Improved Conventional</td></tr>
+<tr><td>Open Loop</td></tr>
+<tr><td>Euro 1</td></tr>
+<tr><td>Euro 2</td></tr>
+<tr><td>Euro 3</td></tr>
+<tr><td>Euro 4</td></tr>
+<tr><td>Euro 5</td></tr>
+<tr><td>Euro 6 a/b/c</td></tr>
+<tr><td>Euro 6 d-temp</td></tr>
+<tr><td>Euro 6 d</td></tr>
+<tr><td rowspan="5">Diesel Mini</td>
+  <td>Euro 4</td></tr>
+  <tr><td>Euro 5</td></tr>
+<tr><td>Euro 6 a/b/c</td></tr>
+<tr><td>Euro 6 d-temp</td></tr>
+<tr><td>Euro 6 d</td></tr>
+<tr><td rowspan="9">Diesel Small <br>Diesel Medium <br>Diesel Large</td>
+  <td>Conventional</td></tr>
+  <tr><td>Euro 1</td></tr>
+  <tr><td>Euro 2</td></tr>
+  <tr><td>Euro 3</td></tr>
+  <tr><td>Euro 4</td></tr>
+  <tr><td>Euro 5</td></tr>
+  <tr><td>Euro 6 a/b/c</td></tr>
+  <tr><td>Euro 6 d-temp</td></tr>
+  <tr><td>Euro 6 d</td></tr>
+  <tr><td rowspan="5">Petrol Hybrid Mini <br>Petrol Hybrid Small<br> Petrol Hybrid Medium <br> Petrol Hybrid Large</td>
+  <td>Euro 4</td></tr>
+  <tr><td>Euro 5</td></tr>
+  <tr><td>Euro 6 a/b/c</td></tr>
+  <tr><td>Euro 6 d-temp</td></tr>
+  <tr><td>Euro 6 d</td></tr>
+  <tr><td rowspan="3">Petrol Plug-in Small <br>Petrol Plug-in Medium <br>Petrol Plug-in Large</td>
+  <td>Euro 6 a/b/c</td></tr>
+  <tr><td>Euro 6 d-temp</td></tr>
+  <tr><td>Euro 6 d</td></tr>
+  <tr><td rowspan="3">Diesel Plug-in Large</td>
+    <td>Euro 6 a/b/c</td></tr>
+    <tr><td>Euro 6 d-temp</td></tr>
+    <tr><td>Euro 6 d</td></tr>
+    <tr><td rowspan="5">LPG Mini</td>
+    <td>Euro 4</td></tr>
+    <tr><td>Euro 5</td></tr>
+    <tr><td>Euro 6 a/b/c</td></tr>
+    <tr><td>Euro 6 d-temp</td></tr>
+    <tr><td>Euro 6 d</td></tr>
+    <tr><td rowspan="9">LPG Small <br>LPG Medium <br>LPG Large</td>
+    <td>Conventional</td></tr>
+    <tr><td>Euro 1</td></tr>
+    <tr><td>Euro 2</td></tr>
+    <tr><td>Euro 3</td></tr>
+    <tr><td>Euro 4</td></tr>
+    <tr><td>Euro 5</td></tr>
+    <tr><td>Euro 6 a/b/c</td></tr>
+    <tr><td>Euro 6 d-temp</td></tr>
+    <tr><td>Euro 6 d</td></tr>
+    <tr><td rowspan="5">CNG Mini <br> CNG Small <br> CNG Medium <br> CNG Large</td><td>Euro 4</td></tr>
+   
+    <tr><td>Euro 5</td></tr>
+    <tr><td>Euro 6 a/b/c</td></tr>
+    <tr><td>Euro 6 d-temp</td></tr>
+    <tr><td>Euro 6 d</td></tr>
+</table>
+<br>
+</div>
+<div class="table-container">
+<h4>Light Commercial Vehicles</h4>
+<table border = "1">
+  <tr>
+    <th>Vehicle Type</th>
+    <th>European Standard</th>
+</tr>
+<tr><td rowspan="9">Petrol N1-I <br>Petrol N1-II <br>Petrol N1-III</td><td>Conventional</td></tr>
+<tr><td>Euro 1</td></tr>
+<tr><td>Euro 2</td></tr>
+<tr><td>Euro 3</td></tr>
+<tr><td>Euro 4</td></tr>
+<tr><td>Euro 5</td></tr>
+<tr><td>Euro 6 a/b/c</td></tr>
+<tr><td>Euro 6 d-temp</td></tr>
+<tr><td>Euro 6 d</td></tr>
+<tr><td rowspan="9">Diesel N1-I <br>Diesel N1-II <br>Diesel N1-III</td><td>Conventional</td></tr>
+<tr><td>Euro 1</td></tr>
+<tr><td>Euro 2</td></tr>
+<tr><td>Euro 3</td></tr>
+<tr><td>Euro 4</td></tr>
+<tr><td>Euro 5</td></tr>
+<tr><td>Euro 6 a/b/c</td></tr>
+<tr><td>Euro 6 d-temp</td></tr>
+<tr><td>Euro 6 d</td></tr>
+</table>
+<br>
+</div>
+<div class="table-container">
+<h4>Heavy Commercial Vehicles</h4>
+<table border = "1">
+  <tr>
+    <th>Vehicle Type</th>
+    <th>European Standard</th>
+</tr>
+<tr><td>Gasoline >3.5 tons</td><td>Conventional</td></tr>
+<tr><td rowspan="8">Diesel</td><td>Conventional</td></tr>
+<tr><td>Euro I</td></tr>
+<tr><td>Euro II</td></tr>
+<tr><td>Euro III</td></tr>
+<tr><td>Euro IV</td></tr>
+<tr><td>Euro V</td></tr>
+<tr><td>Euro VI A/B/C</td></tr>
+<tr><td>Euro VI D/E</td></tr>
+</table>
+<br>
+</div>
+</section>
+
+      </section>
+      <br />
+      
+    </main>
+  </body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logistic Chain CO2 Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"
+    integrity="sha512-dfX5uYVXzyU8+KHqj8bjo7UkOdg18PaOtpa48djpNbZHwExddghZ+ZmzWT06R5v6NSk3ZUfsH6FNEDepLx9hPQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+
+
+  </head>
+  <script defer src="script.js"></script>
+  <body>
+    <header>
+      <h1>Calculadora de CO<sub>2</sub> de cadeia logística (Logistic Chain CO<sub>2</sub> Calculator) - Level 3</h1>
+      <p>Análise das emissões diretas de CO<sub>2</sub> de uma cadeia logística (Logistic Chain direct CO<sub>2</sub> emissions analysis)</p>
+    </header>
+    <main>
+      <section id="input-section">
+        <h2>Criar um cenário (Create a Scenario)</h2>
+        <!-- Your input fields for transportation modes, materials, and segments go here -->
+        <label for="transportation-modes" id="mode-select" title="Select the transportation modes to add to the logistic chain">Selecione o modo de transporte para adicionar à cadeia de logística<br>
+          </label><br>
+<input type="checkbox" id="ship" value="ship">
+<label for="ship">Marítimo (Maritime) </label><br>
+<input type="checkbox" id="road" value="road">
+<label for="road">Rodoviário (Road) </label><br>
+<input type="checkbox" id="train" value="train">
+<label for="train">Ferroviário (Rail) </label><br>
+<input type="checkbox" id="portEquipment" value="equipment">
+<label for="portEquipment">Equipamentos portuários (Handling Equipment)</label><br>
+
+        <!-- Container to hold mode-specific input forms -->
+        <div id="mode-inputs-container">
+        <div id="shipInputs" class="form-group">
+          <p>
+           <h4> Preencha os dados do transporte marítimo (Enter maritime transport details):</h4></p> 
+          <label for="ship-type">Tipo de Navio (Ship Type):</label>
+          <select id="ship-type">
+            <option value="">-- Selecione (Please select) --</option>
+            <option value="tanker">Navio-Tanque (Tanker)</option>
+            <option value="bulk-carrier">Graneleiro (Bulk carrier)</option>
+            <option value="container-ship">
+              Navio de contentores (Container ship)
+            </option>
+            <option value="general-cargo-ship">
+              Navio de carga geral (General cargo ship)
+            </option>
+            <option value="ro-ro-ship">Cargueiro Ro-Ro (Ro-Ro ship)</option>
+            <option value="fishing-ship">
+              Embarcação de pesca (Fishing vessel)
+            </option>
+            <option value="port-vessel">
+              Embarcação portuária (Port vessel)
+            </option>
+          </select>
+          <label for="shipCount">Nº deste tipo de navios <br />(Nº of thi kind of ships):</label>
+          <input type="number" id="shipCount" name="shipCount" min="1" step="1"/>
+          
+  
+          <label for="fuel-type">Tipo de combustível (Fuel type): </label>
+          
+          <select id="fuel-type">
+            <option value="">-- Selecione (Please select) --</option>
+            <option value="MDO/MGO">Diesel marítimo (Marime Diesel Oil)</option>
+            <option value="LPG">
+              Gás liquefeito de petróleo (Liquefied petroleum gas)
+            </option>
+            
+            <option value="BFO">Fuelóleo pesado (Heavy Fuel Oil)</option>
+            <option value="ecoBunkers">Biodiesel mix B15</option>
+            <option value="ucome">Biodiesel B100</option>
+            <option value="hydrogen">Hidrogénio Verde (Green Hydrogen)</option>
+            <option value="methanol">Metanol (Methanol)</option>
+            <option value="amonia">Amoníaco (Ammonia)</option>
+          </select><br />
+          <label for="days-at-sea"
+          >Duração da viagem (Trip duration) [days]:</label
+        >
+        <input type="number" id="days-at-sea" min="1" />
+
+        <label for="manuveringTime"
+          >Tempo de manobras (Maneuvering Time) [hours]:</label
+        >
+        <input type="number" id="manuveringTime" min="1" />
+        <label for="hotellingTime"
+          >Tempo de atracação (Hotelling Time) [hours]:</label
+        >
+        <input type="number" id="hotellingTime" min="1" />
+
+          <br /> <h4>Sabe o consumo de combustível do navio? (Do you know the total fuel consumption of the ship?)</h4><br>
+          <input type="checkbox" id="FCknown" value="FCknown">
+          <label for="FC-known">Sim (Yes)</label>
+          <input type="checkbox" id="FCnotknown" value="FCnotknown">
+          <label for="FC-not-known">Não (No)</label>
+          <div id="Container-ShipInputs-FC"style="display:none" >
+        <label for="shipFC">Consumo Total de combustível (Total fuel consumption) [ton]</label>
+        <input type="number" id="shipFC" min="1">
+       
+      </div>
+       <div id="Container-ShipInputs-NO-FC" style="display:none">
+                  <br><h4>Tamanho do Navio (Size of the Ship)</h4><br>
+          <input type="checkbox" id="potencia" value="potencia">
+              <label for="potencia">Potência (Power) </label>
+            <input type="checkbox" id="grossTonage" value="grossTonage">
+              <label for="grossTonage">Arqueação bruta (Gross Tonage) </label><br>
+          <div id="potenciaNavio" style="display:none">
+        
+            <label for="potenciaPrincipal">Potência do sistema principal de propulsão do navio (Power of the main propulsion system)[kW]
+                </label><input type="number" id="potenciaPrincipal" min="1" />
+               <label for="potenciaSecundaria">Potência do sistema auxiliar do navio (Power of the auxiliary system)[kW]
+          </label><input type="number" id="potenciaSecundaria" min="1" />
+              </div>
+              <div id="GTNavio" style="display: none;">
+              <label for="ship-size">Tamanho do Navio (Ship size)[GT]:</label>
+           <input type="number" id="ship-size" min="1" /></div>
+                   <div id="engineSpeedInput">
+            <label for="ship-speed">
+              Velocidade de operação do motor principal (Main engine operation
+              speed):</label
+            >
+            <select id="ship-speed">
+              <option value="">-- Selecione (Please select) --</option>
+              <option value="slow">Lento (Slow)</option>
+              <option value="medium">Médio (Medium)</option>
+              <option value="fast">Rápido (Fast)</option>
+            </select>
+          </div>
+        </div>
+        </div>
+        <div id="roadInputs">
+          <p>
+            Crie um tipo de veículo que queira adicionar na cadeia logística:<br />
+            (Create the type of vehicle to analyse in the logistic chain)
+          </p>
+          <label for="vehicleType">Tipo de Veículo (Vehicle type):</label>
+          <select
+            name="vehicleType"
+            id="vehicleType"
+            onchange="showCorrectInputs()"
+              >
+            <option value="">-- Selecione (Please select) --</option>
+            <option value="passengerCar">
+              Carro de passageiro (Passenger Car)
+            </option>
+            <option value="lightCommercial">
+              Veículo ligeiro de mercadorias (Light Commercial Vehicle)
+            </option>
+            <option value="heavyCommercial">
+              Veículo pesado de mercadorias (Heavy Commercial Vehicle)
+            </option>
+          </select>
+  
+          <div id="lightCommercialInputs">
+            <label for="lightCommercialFuelType"
+              >Tipo de combustível (Type of fuel):</label
+            >
+            <select name="lightCommercialFuelType" id="lightCommercialFuelType">
+              <option value="">-- Selecione (Please select) --</option>
+              <option value="dieselB7">Diesel mix B7</option>
+              <option value="dieselB15">Diesel mix B15</option>
+              <option value="Biodiesel">Biodiesel B100</option>
+              <option value="gasolineE5">Gasolina 95 (E5)</option>
+              <option value="gasolineE10">Gasolina 98 (E10)</option>
+              <option value="ethanol">Etanol E85</option>
+            </select>
+            <label for="lightCommercialSize "
+              >Tamanho do veículo: (vehicle size)</label
+            >
+            <select name="lightCommercialSize" id="lightCommercialSize">
+              <option value="">-- Selecione (Please select) --</option>
+              <option value="N1-I">Veículo N1-I (até 1250kg)</option>
+              <option value="N1-II">Veículo N1-II (de 1250 até 1700kg)</option>
+              <option value="N1-III">Veículo N1-III (de 1700 até 3500kg)</option>
+            </select>
+            <label for="lightCommercialYear"
+              >Ano de registo do veículo (Registration year):</label
+            >
+            <input
+              type="number"
+              id="lightCommercialYear"
+              name="lightCommercialYear"
+              min="1"
+              step="1"
+              max="2024"
+            /><br />
+            <label for="lightCommercialCount"
+              >Nº de veículos ligeiros de carga <br />(Nº of light commercial
+              vehicles):</label
+            >
+            <input
+              type="number"
+              id="lightCommercialCount"
+              name="lightCommercialCount"
+              min="1"
+              step="1"
+              
+            />
+  
+            <label for="lightCommercialDistance"
+              >Distância percorrida (Distance traveled) [km]:</label
+            >
+            <input
+              type="number"
+              id="lightCommercialDistance"
+              name="lightCommercialDistance"
+              min="1"
+              
+            /><br />
+            <label for="lightCommercialSpeed"
+              >Velocidade média (Average speed)[km/h]:</label
+            >
+            <input
+              type="number"
+              id="lightCommercialSpeed"
+              name="lightCommercialSpeed"
+              min="1"
+              
+            />
+            <br />
+          </div>
+  
+          <div id="heavyCommercialInputs">
+            <label for="heavyCommercialType"
+              >Tipo de combustível (Fuel type):</label
+            >
+            <select name="heavyCommercialType" id="heavyCommercialType">
+              <option value="">-- Selecione (Please select) --</option>
+              <option value="dieselB7">Diesel mix B7</option>
+              <option value="dieselB15">Diesel mix B15</option>
+              <option value="Biodiesel">Biodiesel B100</option>
+              <option value="gasolineE5">Gasolina 95 (E5)</option>
+              <option value="gasolineE10">Gasolina 98 (E10)</option>
+              <option value="ethanol">Etanol E85</option>
+            </select>
+            <label for="heavyCommercialSize "
+              >Tamanho do veículo (Vehicle Size):</label
+            >
+            <select name="heavyCommercialSize" id="heavyCommercialSize">
+              <option value="">-- Selecione (Please select) --</option>
+              <option value="PetrolHeavy3.5">Veículo com mais de 3.5ton</option>
+              <option value="rigid7.5">Veículo rígido até 7.5ton</option>
+              <option value="rigid7.5a12">Veículo rígido de 7.5 a 12ton</option>
+              <option value="rigid12a14">Veículo rígido de 12 a 14ton</option>
+              <option value="rigid14a20">Veículo rígido de 14 a 20ton</option>
+              <option value="rigid20a26">Veículo rígido de 20 a 26ton</option>
+              <option value="rigid26a28">Veículo rígido de 26 a 28ton</option>
+              <option value="rigid28a32">Veículo rígido de 28 a 32ton</option>
+              <option value="rigid32">Veículo rígido mais de 32ton</option>
+              <option value="artic14a20">Veículo articulado de 14 a 20ton</option>
+              <option value="artic20a28">Veículo articulado de 20 a 28ton</option>
+              <option value="artic28a34">Veículo articulado de 28 a 34ton</option>
+              <option value="artic34a40">Veículo articulado de 34 a 40ton</option>
+              <option value="artic40a50">Veículo articulado de 40 a 50ton</option>
+              <option value="artic50a60">Veículo articulado de 50 a 60ton</option>
+            </select>
+            <label for="heavyCommercialYear"
+              >Ano de registo do veículo (Registration Year):</label
+            >
+            <input
+              type="number"
+              id="heavyCommercialYear"
+              name="heavyCommercialYear"
+              min="1"
+              step="1"
+              max="2024"
+            /><br />
+            <label for="heavyCommercialCount"
+              >Nº de veículos ligeiros de carga <br />(Nº of light commercial
+              vehicles):</label
+            >
+            <input
+              type="number"
+              id="heavyCommercialCount"
+              name="heavyCommercialCount"
+              min="1"
+              step="1"
+              
+            />
+  
+            <label for="heavyCommercialDistance"
+              >Distância percorrida (Distance traveled) [km]</label
+            >
+            <input
+              type="number"
+              id="heavyCommercialDistance"
+              name="heavyCommercialDistance"
+              min="1"
+            /><br />
+            <label for="heavyCommercialSpeed"
+              >Velocidade média (Average speed)[km/h]:</label
+            >
+            <input
+              type="number"
+              id="heavyCommercialSpeed"
+              name="heavyCommercialSpeed"
+              min="1"
+            />
+            <label for="heavyCommercialSlope"
+              >Tipo de percurso (Average road slope):</label
+            >
+            <select name="heavyCommercialSlope" id="heavyCommercialSlope">
+              <option value="">-- Selecione (Please select) --</option>
+              <option value="0.04">
+                Percurso com inclinação considerável (Mostly uphill)
+              </option>
+                            </option>
+              <option value="0.00">Percurso principalmente plano (Mostly flat)</option>
+            </select>
+            <br />
+            <label for="heavyCommercialLoad">Carga do Camião (Truck load)</label>
+            <select name="heavyCommercialLoad" id="heavyCommercialLoad">
+              <option value="">-- Selecione (Please select) --</option>
+              <option value="1.00">Camião cheio (Full Truck)</option>
+              <option value="0.50">Camião meio cheio (Half-full Truck)</option>
+              <option value="0.00">Camião vazia (Empty Truck)</option>
+            </select>
+          </div>
+          <div id="passengeCarInputs">
+            <div id="createPassengerCarType">
+              <label for="passengerCarFuelType"
+                >Tipo de combustível (Fuel type):</label
+              >
+              <select name="passengerCarFuelType" id="passengerCarFuelType">
+                <option value="">-- Selecione (Please select) --</option>
+                <option value="dieselB7">Diesel B7</option>
+                <option value="dieselB15">Diesel B15</option>
+                <option value="Biodiesel">Biodiesel B100</option>
+                <option value="gasolineE5">Gasolina 95 (E5)</option>
+                <option value="gasolineE10">Gasolina 98 (E10)</option>
+                <option value="ethanol">Ethanol E85</option>
+                <option value="hybrid">Hibrido (gasolina)</option>
+                <option value="dieselPHEV">Diesel Plug-in (PHEV)</option>
+                <option value="gasolinePHEV">Gasolina Plug-in (PHEV)</option>
+                <option value="lpgGasoline">
+                  Gasolina e Gás liquefeito de petróleo (GPL)
+                </option>
+                <option value="cngGasoline">
+                  Gasolina e Gás natural comprimido (GNC)
+                </option></select
+              ><br />
+              <label for="passengerCarSize "
+                >Tamanho do veículo (Vehicle size):</label
+              >
+              <select name="passengerCarSize" id="passengerCarSize">
+                <option value="">-- Selecione (Please select) --</option>
+                <option value="mini">
+                  Veículo mini até 1400kg (Mini vechicle up to 1400kg)
+                </option>
+                <option value="small">
+                  Veículo pequeno de 1400 até 1800kg (Litle vechicle from 1400 to
+                  1800kg)
+                </option>
+                <option value="medium">
+                  Veículo médio de 1800 até 2400kg (Medium vechicle from 1800 to
+                  2400kg)
+                </option>
+                <option value="large">
+                  Veículo grande mais que 2400kg (Big vechicle more than 2400kg)
+                </option>
+              </select>
+              <label for="passengerCarYear"
+                >Ano de registo do veículo (Registration year):</label
+              >
+              <input
+                type="number"
+                id="passengerCarYear"
+                name="passengerCarYear"
+                min="1"
+              step="1"
+              max="2024"
+              /><br />
+              <label for="passengerCarCount"
+                >Nº deste tipo de veículo a incluir cadeia logística <br />(Nº of this
+                kind of vehiclhe to add to the logistic chain):</label
+              >
+              <input
+                type="number"
+                id="passengerCarCount"
+                name="passengerCarCount"
+                min="1"
+              step="1"
+              
+              /><br />
+              <label for="passengerCarDistance"
+                >Distância percorrida (Distance traveled) [km]:</label
+              >
+              <input
+                type="number"
+                id="passengerCarDistance"
+                name="passengerCarDistance"
+                min="1"
+             
+              /><br />
+              <label for="passengerCarSpeed"
+                >Velocidade média (Average speed)[km/h]:</label
+              >
+              <input
+                type="number"
+                id="passengerCarSpeed"
+                name="passengerCarSpeed"
+                min="1"
+              />
+              <br />
+            </div>
+          </div>
+        </div>
+  
+        <div id="trainInputs">
+          <p>Prencha os dados dos comboio (Enter Train details)</p>
+          <label for="trainCount"
+            >Quantidade destas locomotivas (Quantity of these Locomotives)</label
+          >
+          <input type="number" id="trainCount" name="trainCount"min="1"
+          step="1"
+          /><br />
+          <label for="trainHoras">Duração da viagem (Trip duration) [hr]:</label>
+          <input type="number" id="trainHoras" name="trainHoras" min="1" step="1"/><br />
+          <label for="trainFuel">Tipo de combusível (Fuel type):</label>
+          <select name="trainFuel" id="trainFuel">
+            <option value="">-- Selecione (Please select) --</option>
+            <option value="diesel">Diesel mix B7</option>
+            <option value="eletricity">Eletricidade (Electricity)</option>
+            <option value="biodiesel">Biodiesel B100</option></select
+          ><br />
+          <label for="trainLoad">Fator de carga (Load Factor) </label>
+          <select name="trainLoad" id="trainLoad">
+            <option value="">-- Selecione (Please select) --</option>
+            <option value="full">Locomotiva cheia (Full Locomotive)</option>
+            <option value="half">
+              Locomotiva meio cheia (Half-full Locomotive)
+            </option>
+            <option value="empty">Locomotiva vazia (Empty Locomotive)</option>
+          </select>
+          <label for="trainPower"
+            >Potência média da locomotiva (Locomotive power)[kW]:</label
+          >
+          <input type="number" id="trainPower" name="trainPower" min="1"
+          /><br />
+        </div>
+  
+        <div id="equipmentInputs">
+          <p>Prencha os dados dos equipamentos (Enter equipment details) :</p>
+          <label for="equipmentCount"
+            >Quantidade destes equipamentos (Quantity of these equipments)</label
+          >
+          <input type="number" id="equipmentCount" name="equipmentCount"min="1"
+          step="1"
+           />
+          <label for="equipmentType">Tipo de combutível (Fuel type):</label>
+          <select
+            name="equipmentType"
+            id="equipmentType"
+            onchange="showEngineSize()"
+          >
+            <option value="">-- Selecione (Please select) --</option>
+            <option value="diesel">Diesel mix B7</option>
+            <option value="B15">Diesel mix B15</option>
+            <option value="B100">Biodiesel B100</option>
+            <option value="gasoline2stroke">Gasolina (2 Stroke)</option>
+            <option value="gasoline4stroke">Gasolina (4 Stroke)</option>
+            <option value="LPG">
+              Gás natural Liquifeito (Liquefied petroleum gas)
+            </option>
+            <option value="eletricity">Eletricidade (Electricity)</option>
+          </select>
+          <br />
+          <div id="engineSizeInput" style="display: none">
+            <label for="engineSize">Tamanho do motor (Engine Size) [CC]:</label>
+            <input type="number" id="engineSize" name="engineSize" min="1" /><br />
+          </div>
+          <label for="equipmentActivity"
+            >Horas de Trabalho (Hours of Work):</label
+          >
+          <input
+            type="number"
+            id="equipmentActivity"
+            name="equipmentActivity"
+            min="1"
+              step="1"
+              
+          /><br />
+          <label for="equipmentPower"
+            >Potência do equipamento (Equipment Power)[kW]:</label
+          >
+          <input type="number" id="equipmentPower" name="equipmentPower" min="1"/><br />
+          <label for="equipmentYear"
+            >Ano de registo (Year of registration):</label
+          >
+          <input type="number" id="equipmentYear" name="equipmentYear" min="1"
+          step="1"
+          max="2024"/><br />
+          
+          <label for="equiLoad">Fator de carga (Load Factor) </label>
+          <select name="equiLoad" id="equiLoad">
+            <option value="">-- Selecione (Please select) --</option>
+            <option value="full">Equipamento cheio (Full cargo)</option>
+            <option value="half">Equipamento meio cheio (Half-full cargo)</option>
+            <option value="empty">Equipamento vazio (Empty cargo)</option>
+          </select>
+        </div>
+      </div>
+    </form>
+      
+      <button id="addVehicleButton" type="button">
+        Acrescentar veículo ao cenário (Add Vehicle to this Scenario)
+      </button>
+      
+      </section>
+      <section id="simulation-section" style="display: none">
+        <h2>Resultados do cenário (Results of the Scenario)</h2>
+        <div class="row" >
+          <div class="column road-column" style="display: none" style="background-color:#aaa;">
+            <h2>Veículos Rodoviário</h2>
+            <ul class="vehicle-list"></ul>
+            <p id="roadResults"></p>
+          </div>
+          <div class="column train-column" style="display: none" style="background-color:#bbb;">
+            <h2>Comboios</h2>
+            <ul class="vehicle-list"></ul>
+            <p id="trainResults"></p>
+          </div>
+          <div class="column ship-column" style="display: none" style="background-color:#ccc;">
+            <h2>Navios</h2>
+            <ul class="vehicle-list"></ul>
+            <p id="shipResults"></p>
+          </div>
+          <div class="column portEquipment-column" style="display: none" style="background-color:#ddd;">
+            <h2>Equipamentos Portuários</h2>
+            <ul class="vehicle-list"></ul>
+            <p id="EquipmentResults"></p>
+          </div>
+        </div>
+        
+    </div>
+    <button id="saveButton" type="button">
+      Guardar cenário (Save Scenario)
+          
+        <button id="clearFleetButton" type="button">
+          Eliminar cenário (Delete ccenario)
+        </button>
+        <!-- Display CO2 emissions calculations and results here -->
+      </section>
+      <section id="comparison-section"style="display: none">
+        <h2>Comparação de Cenários (Scenario comparison)</h2>
+        
+          <button id="deleteButton" type="button">
+            Eliminar cenário de comparação (Delete Scenarios)
+        </button>
+       <button  type="button"; id="exportButton">Exportar cenários para Excel (Export scenarios to Excel)</button>
+      <div id="chartContainer">
+      </div>
+        <!-- Allow users to compare emissions for different scenarios here -->
+      </section>
+      <button id="level1Button" type="button"title="Go to level 1">Nível 1 (Level 1)</button>
+    <button id="level2Button" type="button">Nível 2 (Level 2)</button>
+    </main>
+    <footer>
+      <p>&copy; 2023 Logistic CO<sub>2</sub> Calculator</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
